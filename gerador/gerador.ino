@@ -104,14 +104,15 @@ void setup() {
 }
 
 void loop() {
-  int A = 5;
-  int N = 20;
+  int offset = 225;
+  int A = 6;
+  int N = 50;
   int N1 = ((N/2)-1)/2;
-  for (int n = 0; n < N; n+=1) 
+  for (int n = offset%N; n < N; n+=1) 
   {
 
-  Serial.println(A*seno(N,n));
-//  Serial.println(A*quadrado(N,N1,n));
+//  Serial.println(A*seno(N,n));
+  Serial.println(A*quadrado(N,N1,n));
 //  Serial.println(A*triangulo(N,n));
   
   }
