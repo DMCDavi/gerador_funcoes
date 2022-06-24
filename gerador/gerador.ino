@@ -114,8 +114,8 @@ void setup() {
 }
 
 void loop() {
-  int N = 40;
-  int N1 = (N/4)-1;
+  int N = 128;
+  int N1 = ((N/2)-1)/2;
   for (int n = 0; n < N; n+=1) 
   {
 
