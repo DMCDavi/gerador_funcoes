@@ -72,7 +72,7 @@ double triangulo(int N,int N1, int n)
 
  for(int k=0;k<=N ;k++){
   if (k == 0){
-    y = y + (1.0/float(N))*((2.0*float(N1)+1.0))*((2.0*float(N1)+1.0));
+    y = y + pow((2.0*float(N1)+1.0)/float(N),2);
     }
   else{
     Complex coef(0,w0*n*k);
@@ -80,10 +80,10 @@ double triangulo(int N,int N1, int n)
     Complex coefsen1(k*w0*sen1termo, 0);
     Complex coefsen2(k*w0/2, 0);
     Complex hold(0,0);
-    Complex Nfrac(1.0/float(N),0);
-    hold = ( coefsen1.c_sin() / (coefsen2.c_sin())) * e.c_pow( coef );
-     y = y + Nfrac * hold.c_pow(2);
-//       y = y+ Nfrac *(( coefsen1.c_sin() / (coefsen2.c_sin())) * e.c_pow( coef ) )*(( coefsen1.c_sin() / (coefsen2.c_sin())) * e.c_pow( coef ) );
+    Complex Ncplx(float(N),0);
+    hold = ( coefsen1.c_sin() / (Ncplx*coefsen2.c_sin())) * e.c_pow( coef );
+     y = y + hold.c_pow(2);
+//       y = y+ Ncplx *(( coefsen1.c_sin() / (coefsen2.c_sin())) * e.c_pow( coef ) )*(( coefsen1.c_sin() / (coefsen2.c_sin())) * e.c_pow( coef ) );
 //    y = y+ (1/complexN)*( coefsen1.c_sin() / (coefsen2.c_sin())) * e.c_pow( coef );
 
     //--y = y+ ( sin(k*w0*(N1+1/2))  / (N*sin(k*w0/2))) * e.c_pow( coef );
@@ -113,14 +113,14 @@ void setup() {
 }
 
 void loop() {
-  int N = 80;
+  int N = 40;
   int N1 = (N/4)-1;
   for (int n = 0; n < N; n+=1) 
   {
 
-  Serial.println(seno(N,n));
+//  Serial.println(seno(N,n));
 //  Serial.println(quadrado(N,N1,n));
-//  Serial.println(triangulo(N,N1,n));
+  Serial.println(triangulo(N,N1,n));
   
   }
   // put your main code here, to run repeatedly:
