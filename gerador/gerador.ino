@@ -104,14 +104,15 @@ void setup() {
 }
 
 void loop() {
-  int N = 10;
+  int A = 5;
+  int N = 20;
   int N1 = ((N/2)-1)/2;
   for (int n = 0; n < N; n+=1) 
   {
 
-//  Serial.println(seno(N,n));
-//  Serial.println(quadrado(N,N1,n));
-  Serial.println(triangulo(N,n));
+  Serial.println(A*seno(N,n));
+//  Serial.println(A*quadrado(N,N1,n));
+//  Serial.println(A*triangulo(N,n));
   
   }
   // put your main code here, to run repeatedly:
