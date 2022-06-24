@@ -61,7 +61,7 @@ double quadrado(int N,int N1, int n)
 //funcao para triangular
 
 
-double triangulo(int N,int N1, int n)
+double triangulo(int N, int n)
 {
  double val = 0;
  double w0 = (2 * pi) / N; //frequencia natural
@@ -69,27 +69,17 @@ double triangulo(int N,int N1, int n)
  Complex y(0,0); //inicia saida vazia 
  Complex complexN(N,0);
 
-
- for(int k=0;k<=N ;k++){
-  if (k == 0){
-    y = y + 2*pow((2.0*float(N1)+1.0)/float(N),2);
-    }
-  else{
-    Complex coef(0,w0*n*k);
-    float sen1termo = (float(N1)+1.0/2.0);
-    Complex coefsen1(k*w0*sen1termo, 0);
-    Complex coefsen2(k*w0/2, 0);
-    Complex hold(0,0);
     Complex Ncplx(float(N),0);
     Complex twoCplx(2.0,0);
-    hold = ( coefsen1.c_sin() / (Ncplx*coefsen2.c_sin())) * e.c_pow( coef );
-     y = y + twoCplx*hold.c_pow(2);
-//       y = y+ Ncplx *(( coefsen1.c_sin() / (coefsen2.c_sin())) * e.c_pow( coef ) )*(( coefsen1.c_sin() / (coefsen2.c_sin())) * e.c_pow( coef ) );
-//    y = y+ (1/complexN)*( coefsen1.c_sin() / (coefsen2.c_sin())) * e.c_pow( coef );
+    Complex fourCplx(4.0,0);
+    Complex oneCplx(1.0,0);
+    Complex minusOneCplx(-1.0,0);
 
-    //--y = y+ ( sin(k*w0*(N1+1/2))  / (N*sin(k*w0/2))) * e.c_pow( coef );
-    //x+(np.sin(k*w0*(N1+1/2))/(N*np.sin(k*w0/2)))*np.exp(1j*k*w0*n)
-    }  
+ for(int k=1;k<=N ;k++){
+    Complex coef(0,w0*n*k);
+    Complex kpi(0,k*pi);
+    
+     y = y + (fourCplx/kpi.c_pow(2))*(oneCplx-e.c_pow( (minusOneCplx)*kpi ))*e.c_pow( coef );
   }
 
   val = y.real();
@@ -114,14 +104,14 @@ void setup() {
 }
 
 void loop() {
-  int N = 128;
+  int N = 10;
   int N1 = ((N/2)-1)/2;
   for (int n = 0; n < N; n+=1) 
   {
 
 //  Serial.println(seno(N,n));
 //  Serial.println(quadrado(N,N1,n));
-  Serial.println(triangulo(N,N1,n));
+  Serial.println(triangulo(N,n));
   
   }
   // put your main code here, to run repeatedly:
