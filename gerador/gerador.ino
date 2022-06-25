@@ -5,6 +5,7 @@
 Complex e=2.7182;
 //funcao para o seno
 
+
 double seno(int N, int n)
 {
  double val = 0;
@@ -27,6 +28,8 @@ double seno(int N, int n)
  //return 25 + (51 * val) / 2 ;
 }
 //funcao para a quadrada
+
+
 
 double quadrado(int N,int N1, int n)
 {
@@ -104,8 +107,9 @@ void setup() {
 }
 
 void loop() {
-  int offset =0;
-  int A = 6;
+  
+  int offset =5;
+  int A = 5;
   int N = 60;
   int N1 = ((N/2)-1)/2;
   // Controle de Fase, Fase varia de 0 a 360, pegamos o percentual e multiplicamos por N, depois soma o valor de atraso em N
@@ -113,18 +117,26 @@ void loop() {
   int ControleFase = 0;
   
   ControleFase = fase*N/360;
-  //offset%N
+  
   for (int n = 0; n < N; n+=1) 
   {
-//    Serial.println(ControleFase);
-  Serial.print(A*seno(N,n));
-  Serial.print(",");
-  Serial.println(A*seno(N,n + ControleFase));
   
-//  Serial.println(A*quadrado(N,N1,n));
-//  Serial.println(A*triangulo(N,n));
+//  Serial.print(seno(N,n));
+//  Serial.print(",");
+//  Serial.println(A*seno(N,n + ControleFase)+offset );
+
+  Serial.print(quadrado(N,N1,n));
+  Serial.print(",");
+  Serial.println(A*quadrado(N,N1,n + ControleFase)+offset );
+
+//    Serial.print(triangulo(N,n));
+//    Serial.print(",");
+//    Serial.println(A*triangulo(N,n + ControleFase)+offset );
+  
+  //  Serial.println(A*quadrado(N,N1,n));
+  //  Serial.println(A*triangulo(N,n));
+  }
+
   
   }
   // put your main code here, to run repeatedly:
-
-}
