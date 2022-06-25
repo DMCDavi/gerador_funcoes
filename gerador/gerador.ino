@@ -90,30 +90,41 @@ double triangulo(int N, int n)
  //return 25 + (51 * val) / 2 ;
 }
 
+ //Configurando potenciometros
+int potAmplitude = A0; //pino do potenciometro da amplitude
+int potFreq = A1; //pino do potenciometro da amplitude
+int potOffset = A2; //pino do potenciometro do offset
+int potFase = A3; //pino do potenciometro da fase
 
+int pushbutton = 2;
 void setup() {
-  // put your setup code here, to run once:
+ pinMode(pushbutton, INPUT_PULLUP);
  Serial.begin(9600);
-//  Complex c1(10.0, -2.0);
-//  Complex c2(3, 0);
-//  c2 = c1.c_sin();
-//  Complex c5(0, 0);
-   //c5 = e.c_pow(c1);
 
-//   int w0 = 5;
-//   int n = 2;
-//   Complex a1(0,w0*n);
-//  Serial.println(c2);
+ 
 }
 
+int sig = 0;
 void loop() {
-  
-  int offset =5;
-  int A = 5;
-  int N = 60;
+
+
+ //controle do sinal pelo botao
+ //0 - sin, 1 - quadrado, 2 - triangulo
+  if (digitalRead(pushbutton) == LOW){
+    sig +=1;
+    sig = sig%3;
+    delay(200);  
+    }
+
+  int offset =int(map(analogRead(potOffset), 0, 1000, -10, 10));
+//  Serial.println(analogRead(potFase)); // 
+  //Amplitude
+  int A = int(map(analogRead(potAmplitude), 0, 1000, 0, 5));
+  //Frequencia
+  int N = int(map(analogRead(potFreq), 0, 1000, 1, 100));
   int N1 = ((N/2)-1)/2;
   // Controle de Fase, Fase varia de 0 a 360, pegamos o percentual e multiplicamos por N, depois soma o valor de atraso em N
-  int fase = 180;
+  int fase = int(map(analogRead(potFase), 0, 1000, 0, 360));
   int ControleFase = 0;
   
   ControleFase = fase*N/360;
@@ -121,18 +132,21 @@ void loop() {
   for (int n = 0; n < N; n+=1) 
   {
   
-//  Serial.print(seno(N,n));
-//  Serial.print(",");
-//  Serial.println(A*seno(N,n + ControleFase)+offset );
-
-  Serial.print(quadrado(N,N1,n));
+  if (sig == 0){
+  Serial.print(seno(N,n));
   Serial.print(",");
-  Serial.println(A*quadrado(N,N1,n + ControleFase)+offset );
-
-//    Serial.print(triangulo(N,n));
-//    Serial.print(",");
-//    Serial.println(A*triangulo(N,n + ControleFase)+offset );
-  
+  Serial.println(A*seno(N,n + ControleFase)+offset );
+  }
+  if (sig == 1){
+    Serial.print(quadrado(N,N1,n));
+    Serial.print(",");
+    Serial.println(A*quadrado(N,N1,n + ControleFase)+offset );
+  }
+  if (sig == 2){
+    Serial.print(triangulo(N,n));
+    Serial.print(",");
+    Serial.println(A*triangulo(N,n + ControleFase)+offset );
+  }
   //  Serial.println(A*quadrado(N,N1,n));
   //  Serial.println(A*triangulo(N,n));
   }
