@@ -104,16 +104,16 @@ void setup() {
 }
 
 void loop() {
-  int offset = 225;
-  int A = 6;
+  int offset = 0;
+  int A = 1;
   int N = 50;
   int N1 = ((N/2)-1)/2;
-  for (int n = offset%N; n < N; n+=1) 
+  for (int n = 0; n < N; n+=1) 
   {
-
-//  Serial.println(A*seno(N,n));
-  Serial.println(A*quadrado(N,N1,n));
-//  Serial.println(A*triangulo(N,n));
+int nOffset = n+offset;
+  Serial.println(A*seno(N,nOffset));
+//  Serial.println(A*quadrado(N,N1,nOffset));
+//  Serial.println(A*triangulo(N,nOffset));
   
   }
   // put your main code here, to run repeatedly:
