@@ -104,15 +104,24 @@ void setup() {
 }
 
 void loop() {
-  int offset = 225;
+  int offset =0;
   int A = 6;
-  int N = 50;
+  int N = 60;
   int N1 = ((N/2)-1)/2;
-  for (int n = offset%N; n < N; n+=1) 
+  // Controle de Fase, Fase varia de 0 a 360, pegamos o percentual e multiplicamos por N, depois soma o valor de atraso em N
+  int fase = 180;
+  int ControleFase = 0;
+  
+  ControleFase = fase*N/360;
+  //offset%N
+  for (int n = 0; n < N; n+=1) 
   {
-
-//  Serial.println(A*seno(N,n));
-  Serial.println(A*quadrado(N,N1,n));
+//    Serial.println(ControleFase);
+  Serial.print(A*seno(N,n));
+  Serial.print(",");
+  Serial.println(A*seno(N,n + ControleFase));
+  
+//  Serial.println(A*quadrado(N,N1,n));
 //  Serial.println(A*triangulo(N,n));
   
   }
